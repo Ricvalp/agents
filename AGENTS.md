@@ -118,6 +118,23 @@ generated logs. Do not accidentally ignore useful source inside a workspace.
   add gradient norms, timing, or throughput when useful. Use consistent namespaces
   such as `train/`, `val/`, and `eval/`. Document non-obvious metrics, units,
   averaging, and success denominators. Do not call a proxy metric task success.
+- Whenever logging is introduced or configured in a project, create a tracked
+  Markdown metric reference, normally `docs/metrics.md`, and link it from the
+  README. Reuse an existing reference instead of creating a duplicate. This
+  applies to local logging as well as W&B or another tracking service.
+- Cover every application-logged scalar, histogram, image, video, and failure
+  indicator. Give the exact key (or an explicit key template with all possible
+  values), a brief plain-language meaning, and the details needed to interpret
+  it: formula, units/scaling, aggregation and denominator, data split, evaluation
+  protocol, logging frequency, step axis, applicable stages, improvement direction
+  or expected range, baselines, and important limitations. Explain missing or
+  undefined values and distinguish task metrics from proxies and automatic
+  tracker telemetry. Link to the code that computes the values.
+- Keep the metric reference current in the same change whenever logging keys,
+  calculations, normalization, splits, baselines, schedules, or media change.
+  Document renames/removals when needed to interpret older runs. Before finishing
+  a logging change, check the reference against the emitted keys and calculations;
+  a short list of selected dashboard metrics is not a complete reference.
 - Log a few fixed qualitative examples where informative: predictions versus
   ground truth, conditioning context, or action chunks. Preserve training RNG
   state around diagnostics so enabling logging does not change training.
